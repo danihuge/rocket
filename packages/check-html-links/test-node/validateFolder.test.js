@@ -66,6 +66,46 @@ describe('validateFolder', () => {
     ]);
   });
 
+  it('validates external links', async () => {
+    const { errors, cleanup } = await execute('fixtures/external-link');
+    expect(cleanup(errors)).to.deep.equal([
+      {
+        filePath:
+          '/Users/jorge.delcasar/Projects/misc/rocket/packages/check-html-links/test-node/fixtures/external-link/index.html',
+        onlyAnchorMissing: false,
+        usage: [
+          {
+            attribute: 'href',
+            value: '//domain.com/something/',
+            file:
+              '/Users/jorge.delcasar/Projects/misc/rocket/packages/check-html-links/test-node/fixtures/external-link/index.html',
+            line: 6,
+            character: 9,
+            anchor: '',
+          },
+          {
+            attribute: 'href',
+            value: 'http://domain.com/something/',
+            file:
+              '/Users/jorge.delcasar/Projects/misc/rocket/packages/check-html-links/test-node/fixtures/external-link/index.html',
+            line: 7,
+            character: 9,
+            anchor: '',
+          },
+          {
+            attribute: 'href',
+            value: 'https://domain.com/something/',
+            file:
+              '/Users/jorge.delcasar/Projects/misc/rocket/packages/check-html-links/test-node/fixtures/external-link/index.html',
+            line: 8,
+            character: 9,
+            anchor: '',
+          },
+        ],
+      },
+    ]);
+  });
+
   it('groups multiple usage of the same missing file', async () => {
     const { errors, cleanup } = await execute('fixtures/internal-links-to-same-file');
     expect(cleanup(errors)).to.deep.equal([
