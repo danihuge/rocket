@@ -148,6 +148,6 @@ Similarly, if you never want to create social media images even during build the
 
 ```js
 const config = {
-  createSocialMediaImages: true,
+  createSocialMediaImages: false,
 };
 ```
